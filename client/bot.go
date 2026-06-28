@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/puweofficial/mtproto-go/types"
+	"github.com/puweofficial/MtPromo-go/types"
 )
 
 // Message holds a parsed incoming Telegram message.
@@ -26,7 +26,7 @@ type Update struct {
 func (c *Client) BotSignIn(token string) error {
 	buf := types.NewTLBuffer()
 	buf.WriteUInt32(0x67a3ff2c) // auth.importBotAuthorization
-	buf.WriteInt32(0)            // flags
+	buf.WriteInt32(0)           // flags
 	buf.WriteInt32(int32(c.cfg.AppID))
 	buf.WriteString(c.cfg.AppHash)
 	buf.WriteString(token)
@@ -95,7 +95,7 @@ func (c *Client) getUpdatesDifference(s *updatesState) ([]*Update, error) {
 	buf := types.NewTLBuffer()
 	buf.WriteUInt32(0x25939651) // updates.getDifference
 	buf.WriteInt32(s.pts)
-	buf.WriteInt32(0)      // pts_limit (absent, flags)
+	buf.WriteInt32(0) // pts_limit (absent, flags)
 	buf.WriteInt32(s.date)
 	buf.WriteInt32(s.qts)
 

@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/puweofficial/mtproto-go/types"
+	"github.com/puweofficial/MtPromo-go/types"
 )
 
 // ─── Authentication (user flow) ──────────────────────────────────────────────
@@ -149,9 +149,9 @@ func (c *Client) SendMessage(username, text string) (int32, error) {
 	buf.WriteInt64(peer.UserID)
 	buf.WriteInt64(peer.AccessHash)
 	buf.WriteString(text)
-	buf.WriteInt64(rand.Int63())   // random_id
-	buf.WriteInt32(0)              // reply_to_msg_id
-	buf.WriteUInt32(0x00000000)    // entities (empty)
+	buf.WriteInt64(rand.Int63()) // random_id
+	buf.WriteInt32(0)            // reply_to_msg_id
+	buf.WriteUInt32(0x00000000)  // entities (empty)
 
 	resp, err := c.Call(buf.Bytes())
 	if err != nil {
@@ -159,8 +159,8 @@ func (c *Client) SendMessage(username, text string) (int32, error) {
 	}
 	// Parse updates to extract message id
 	rb := types.NewTLBufferFrom(resp)
-	rb.ReadUInt32()              // updates constructor
-	rb.ReadUInt32()              // updates vector
+	rb.ReadUInt32() // updates constructor
+	rb.ReadUInt32() // updates vector
 	count, _ := rb.ReadInt32()
 	if count == 0 {
 		return 0, nil
@@ -261,7 +261,7 @@ func (c *Client) SendFile(username, filePath, caption, fileType string) (int32, 
 func (c *Client) sendMedia(peer *resolvedPeer, inputFile *InputFile, caption, fileType string) (int32, error) {
 	buf := types.NewTLBuffer()
 	buf.WriteUInt32(0x72ccc23d) // messages.sendMedia
-	buf.WriteInt32(0)            // flags
+	buf.WriteInt32(0)           // flags
 	// peer
 	buf.WriteUInt32(0x7b8e7de6)
 	buf.WriteInt64(peer.UserID)
@@ -272,7 +272,7 @@ func (c *Client) sendMedia(peer *resolvedPeer, inputFile *InputFile, caption, fi
 	switch fileType {
 	case "photo":
 		buf.WriteUInt32(0x1e287d04) // inputMediaUploadedPhoto
-		buf.WriteInt32(0)            // flags
+		buf.WriteInt32(0)           // flags
 		// inputFile
 		buf.WriteUInt32(0xf52ff27f)
 		buf.WriteInt64(inputFile.ID)
@@ -286,8 +286,8 @@ func (c *Client) sendMedia(peer *resolvedPeer, inputFile *InputFile, caption, fi
 		buf.WriteInt32(0)
 	default: // document
 		buf.WriteUInt32(0x5b38c6c1) // inputMediaUploadedDocument
-		buf.WriteInt32(0)            // flags
-		buf.WriteInt32(0)            // nosound_video flag
+		buf.WriteInt32(0)           // flags
+		buf.WriteInt32(0)           // nosound_video flag
 		// inputFile
 		buf.WriteUInt32(0xf52ff27f)
 		buf.WriteInt64(inputFile.ID)
@@ -307,7 +307,7 @@ func (c *Client) sendMedia(peer *resolvedPeer, inputFile *InputFile, caption, fi
 		buf.WriteInt32(0) // ttl_seconds
 	}
 
-	buf.WriteString(caption)    // message (caption)
+	buf.WriteString(caption)     // message (caption)
 	buf.WriteInt64(rand.Int63()) // random_id
 	// reply_markup = replyKeyboardHide (absent, flags bit not set)
 	// entities (absent)

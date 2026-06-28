@@ -18,7 +18,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/puweofficial/mtproto-go/client"
+	"github.com/puweofficial/MtPromo-go/client"
 )
 
 func main() {

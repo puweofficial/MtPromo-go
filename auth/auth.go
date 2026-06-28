@@ -12,9 +12,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/puweofficial/mtproto-go/crypto"
-	"github.com/puweofficial/mtproto-go/transport"
-	"github.com/puweofficial/mtproto-go/types"
+	"github.com/puweofficial/MtPromo-go/crypto"
+	"github.com/puweofficial/MtPromo-go/transport"
+	"github.com/puweofficial/MtPromo-go/types"
 )
 
 // TelegramPublicKeys contains well-known Telegram RSA public keys.
@@ -32,10 +32,10 @@ const telegramPublicKeyN = "00e8bb3305c0b52c6cf2afdf7637313489e84e4a797" +
 
 // AuthKey holds a derived authorization key and related session data.
 type AuthKey struct {
-	Key    []byte // 2048-bit auth key
-	KeyID  []byte // lower 8 bytes of SHA1(key)
-	Salt   int64  // server salt for the session
-	DcID   int    // the DC this key belongs to
+	Key   []byte // 2048-bit auth key
+	KeyID []byte // lower 8 bytes of SHA1(key)
+	Salt  int64  // server salt for the session
+	DcID  int    // the DC this key belongs to
 }
 
 // GenerateAuthKey performs a fresh authorization key creation handshake.
@@ -161,7 +161,7 @@ func randomBigInt(bits int) (*big.Int, error) {
 // wrapUnencrypted wraps a payload in the plain (auth_key_id=0) MTProto envelope.
 func wrapUnencrypted(payload []byte) []byte {
 	buf := types.NewTLBuffer()
-	buf.WriteInt64(0)          // auth_key_id = 0 (unencrypted)
+	buf.WriteInt64(0) // auth_key_id = 0 (unencrypted)
 	msgID := pseudoMsgID()
 	buf.WriteInt64(msgID)
 	buf.WriteInt32(int32(len(payload)))
@@ -374,7 +374,7 @@ func buildReqDHParams(nonce, serverNonce, p, q []byte, fp []byte, encrypted []by
 	buf.WriteBytes(serverNonce)
 	buf.WriteBytes(p)
 	buf.WriteBytes(q)
-	buf.WriteBytes(fp)    // public_key_fingerprint
+	buf.WriteBytes(fp) // public_key_fingerprint
 	buf.WriteBytes(encrypted)
 	return buf.Bytes()
 }

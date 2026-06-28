@@ -21,7 +21,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/puweofficial/mtproto-go/client"
+	"github.com/puweofficial/MtPromo-go/client"
 )
 
 // BotToken auth: call auth.importBotAuthorization using the token.

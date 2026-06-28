@@ -1,3 +1,3 @@
-module github.com/puweofficial/mtproto-go
+module github.com/puweofficial/MtPromo-go
 
 go 1.21

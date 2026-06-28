@@ -14,10 +14,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/puweofficial/mtproto-go/auth"
-	"github.com/puweofficial/mtproto-go/crypto"
-	"github.com/puweofficial/mtproto-go/transport"
-	"github.com/puweofficial/mtproto-go/types"
+	"github.com/puweofficial/MtPromo-go/auth"
+	"github.com/puweofficial/MtPromo-go/crypto"
+	"github.com/puweofficial/MtPromo-go/transport"
+	"github.com/puweofficial/MtPromo-go/types"
 )
 
 // DC address table (production).
@@ -49,11 +49,11 @@ type Client struct {
 	conn    *transport.Conn
 	authKey *auth.AuthKey
 
-	seqNo   int32
-	msgSeqN int32 // content-related sequence counter
+	seqNo     int32
+	msgSeqN   int32 // content-related sequence counter
 	sessionID int64
 
-	pending  map[int64]chan []byte
+	pending   map[int64]chan []byte
 	pendingMu sync.Mutex
 
 	closed int32 // atomic bool
@@ -155,10 +155,10 @@ func (c *Client) loadSession() (*auth.AuthKey, error) {
 	}
 	c.sessionID = s.SessionID
 	return &auth.AuthKey{
-		Key:  s.AuthKey,
+		Key:   s.AuthKey,
 		KeyID: s.KeyID,
-		Salt: s.Salt,
-		DcID: s.DcID,
+		Salt:  s.Salt,
+		DcID:  s.DcID,
 	}, nil
 }
 
