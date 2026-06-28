@@ -17,6 +17,8 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/puweofficial/mtproto-go/client"
@@ -102,14 +104,14 @@ func handleUpdate(c *client.Client, upd *client.Update) {
 
 func sendDemoFile(c *client.Client, username string) error {
 	// Create a temporary text file
-	tmpFile := "/tmp/demo.txt"
+	tmpDir := os.TempDir()
+	tmpFile := filepath.Join(tmpDir, "demo.txt")
 	content := "This file was sent via pure MTProto — no Bot API, no extra libraries!\n"
-	err := func() error {
-		f, err := fmt.Fprintln(nil, content) // avoid os import; see production code
-		_ = f
+	err := os.WriteFile(tmpFile, []byte(content), 0644)
+	if err != nil {
 		return err
-	}()
-	_ = err
+	}
+	defer os.Remove(tmpFile)
 	_, sendErr := c.SendFile(username, tmpFile, "Demo file via MTProto!", "document")
 	return sendErr
 }

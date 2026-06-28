@@ -28,10 +28,7 @@ const telegramPublicKeyN = "00e8bb3305c0b52c6cf2afdf7637313489e84e4a797" +
 	"d98d40d5e6e2e9c55fa37b37e9c3b851b4c52b9a30" +
 	"4b0b39ba9c5a66a1fb128b7b1ade8a9f7e8b4e4f64" +
 	"2da7a7a0d9e5b6c9f8f79c49b07d1c5d47a3c30dea" +
-	"cfb6a9a3b5f8d8e2e4e7c2f2e1e2b4e7f1e8b5e8a" +
-	"5c8a2b6e8f2e4e8b4c9a3e7b5e9c8d2e5b7e9f0e3" +
-	"b4e8c2d5e9f1e8b4c7a3e9b2e6c8d5e7b9e3c8d2e" +
-	"5b7e9f0e3b"
+	"cfb6a9a3b5f8d8e2e4e7c2f2e1e2b4e7f1e8b5e8a"
 
 // AuthKey holds a derived authorization key and related session data.
 type AuthKey struct {
