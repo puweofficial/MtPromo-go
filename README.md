@@ -175,7 +175,6 @@ go get github.com/yourusername/mtproto-go@v0.1.0
 ```
 
 Then in their `go.mod`:
-
 ```
 require github.com/yourusername/mtproto-go v0.1.0
 ```
